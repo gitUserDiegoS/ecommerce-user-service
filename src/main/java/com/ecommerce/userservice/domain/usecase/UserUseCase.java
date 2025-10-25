@@ -1,6 +1,7 @@
 package com.ecommerce.userservice.domain.usecase;
 
 
+import com.ecommerce.userservice.domain.model.passwordencoder.gateway.PasswordEncoderRepository;
 import com.ecommerce.userservice.domain.model.user.User;
 import com.ecommerce.userservice.domain.model.user.gateway.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,8 @@ public class UserUseCase implements IuserUseCase{
 
     private final UserRepository userRepository;
 
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderRepository passwordEncoder;
+
 
     @Override
     public User save(User user) {
