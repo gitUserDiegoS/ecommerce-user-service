@@ -1,7 +1,10 @@
 package com.ecommerce.userservice.infrastructure.entrypoint.exceptionhandler;
 
 
+import com.ecommerce.userservice.domain.bussinesexception.BusinessException;
 import com.ecommerce.userservice.infrastructure.entrypoint.dto.ErrorResponseDto;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,18 +15,21 @@ import org.springframework.web.server.ServerWebExchange;
 
 
 import javax.naming.AuthenticationException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.time.LocalDateTime;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseDto> handleGenericException(
-            Exception ex, ServerWebExchange exchange) {
+            Exception ex) {
 
         ErrorResponseDto errorResponse = new ErrorResponseDto(
                 ErrorType.INTERNAL_SERVER_ERROR.name(),
                 ex.getMessage(),
-                exchange.getRequest().getPath().value()
+                LocalDateTime.now().toString()
         );
 
         return ResponseEntity
@@ -50,12 +56,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AuthenticationException.class)
     public ResponseEntity<ErrorResponseDto> handleExceptionNotAuthenticated(
-            AuthenticationException ex, ServerWebExchange exchange) {
+            AuthenticationException ex) {
 
         ErrorResponseDto errorResponse = new ErrorResponseDto(
                 ErrorType.UNAUTHORIZED.name(),
                 ex.getMessage(),
-                exchange.getRequest().getPath().value()
+                LocalDateTime.now().toString()
         );
 
         return ResponseEntity
@@ -65,39 +71,38 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BusinessException.class)
-    public Mono<ResponseEntity<ErrorResponseDto>> handleBusinessException(
-            BusinessException ex, ServerWebExchange exchange) {
-
+    public ResponseEntity<ErrorResponseDto> handleBusinessException(
+            BusinessException ex) {
+        log.error("Diego-->Captured BusinessException: {}", ex.getMessage());
         HttpStatus status = ErrorType.fromCode(ex.getErrorCode());
 
         ErrorResponseDto errorResponse = new ErrorResponseDto(
                 ex.getErrorCode(),
                 ex.getMessage(),
-                exchange.getRequest().getPath().value()
+                LocalDateTime.now().toString()
         );
 
-        return Mono.just(ResponseEntity
+        return ResponseEntity
                 .status(status)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(errorResponse));
+                .body(errorResponse);
     }
 
-    @ExceptionHandler(ValidationException.class)
-    public Mono<ResponseEntity<ErrorResponseDto>> handleValidationException(
-            ValidationException ex, ServerWebExchange exchange) {
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ErrorResponseDto> handleSqlIntegration(
+            SQLIntegrityConstraintViolationException ex) {
 
-        HttpStatus status = ErrorType.fromCode(ex.getErrorCode());
 
         ErrorResponseDto errorResponse = new ErrorResponseDto(
-                ex.getErrorCode(),
+                ErrorType.FORBIDDEN.name(),
                 ex.getMessage(),
-                exchange.getRequest().getPath().value()
+                LocalDateTime.now().toString()
         );
 
-        return Mono.just(ResponseEntity
-                .status(status)
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(errorResponse));
+                .body(errorResponse);
     }
 
 
