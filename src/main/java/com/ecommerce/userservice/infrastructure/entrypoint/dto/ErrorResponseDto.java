@@ -15,6 +15,6 @@ public class ErrorResponseDto {
     @Schema(description = "message Exception", example = "Email null is already registered")
     private String message;
 
-    @Schema(description = "path Exception", example = "/api/v1/usuarios")
-    private String path;
+    @Schema(description = "localTime exception", example = "2025-10-25T23:33:11.472532300")
+    private String time;
 }

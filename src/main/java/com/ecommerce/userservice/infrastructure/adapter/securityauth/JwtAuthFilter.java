@@ -1,6 +1,7 @@
 package com.ecommerce.userservice.infrastructure.adapter.securityauth;
 
 
+import com.ecommerce.userservice.domain.bussinesexception.ExceptionMessages;
 import com.ecommerce.userservice.domain.model.tokenprovider.gateway.TokenProviderRepository;
 import com.ecommerce.userservice.domain.model.usersession.UserSession;
 import jakarta.servlet.FilterChain;
@@ -28,8 +29,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private final TokenProviderRepository tokenProvider;
 
-    //@Value("${routes.paths.login}")
-    private String userPath="/api/v1/users/login";
+    private static final String USER_LOGIN = "/api/v1/users/login";
+    private static final String USER_REGISTER = "/api/v1/users/register";
 
     private static final String TYPE_TOKEN = "Bearer ";
     private static final String TYPE_ROLE = "ROLE_";
@@ -43,7 +44,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
 
         // Allow login, and register route
-        if (path.equals(userPath) || path.contains("/api/v1/users/register")) {
+        if (path.equals(USER_LOGIN) || path.equals(USER_REGISTER)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -69,7 +70,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             } catch (Exception e) {
                 log.error("Error validating JWT token: {}", e.getMessage());
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                response.getWriter().write("ModelExceptionMessages.INVALID_TOKEN");
+                response.getWriter().write(ExceptionMessages.INVALID_TOKEN);
                 return;
             }
         }
