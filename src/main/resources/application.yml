@@ -24,3 +24,13 @@ whitelist:
     - "/api/v1/users/register"
     - "/swagger-ui/**"
     - "/v3/api-docs/**"
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /v3/api-docs
+  info:
+    title: User Service Api
+    version: 1.0.0
+    description: Documentation about user operations

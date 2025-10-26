@@ -31,6 +31,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
     private static final String USER_LOGIN = "/api/v1/users/login";
     private static final String USER_REGISTER = "/api/v1/users/register";
+    private static final String SWAGGER_UI = "/swagger-ui.html";
 
     private static final String TYPE_TOKEN = "Bearer ";
     private static final String TYPE_ROLE = "ROLE_";
@@ -44,7 +45,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String path = request.getRequestURI();
 
         // Allow login, and register route
-        if (path.equals(USER_LOGIN) || path.equals(USER_REGISTER)) {
+        if (path.equals(USER_LOGIN) || path.equals(USER_REGISTER)
+                || path.equals(SWAGGER_UI)
+        ) {
             filterChain.doFilter(request, response);
             return;
         }

@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Request to create a new user")
 public class CreateUserDto {
 
-    @Schema(description = "User idDocument", example = "1234567")
+    @Schema(description = "User documentId", example = "1234567")
     private String documentId;
 
     @Schema(description = "User name", example = "Jhon")
@@ -32,7 +32,7 @@ public class CreateUserDto {
     @Schema(description = "User email", example = "correo@gmail.com.co")
     private String email;
 
-    @Schema(description = "User idDocument", example = "1")
+    @Schema(description = "User role id", example = "1")
     private Long roleId;
 
     @Schema(description = "User password", example = "pa@s7Word")

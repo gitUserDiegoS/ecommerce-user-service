@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Schema(description = "Response for a user created")
 public class UserResponseDto {
 
-    @Schema(description = "idUser for an user created", example = "21")
+    @Schema(description = "id for a user created", example = "21")
     private Long id;
 
 }

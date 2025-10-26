@@ -12,12 +12,22 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "Response with the user found by email")
+@Schema(description = "Response with the user's basic data")
 public class UserProfileResponseDto {
+
+    @Schema(description = "User id", example = "1")
     private Long id;
+
+    @Schema(description = "User name", example = "Jhon")
     private String name;
+
+    @Schema(description = "User email", example = "a@a.com")
     private String email;
+
+    @Schema(description = "User role id", example = "1")
     private String roleId;
+
+    @Schema(description = "List of orders", example = "List Order Summary")
     private List<OrderSummaryDto> orders;
 
 }
