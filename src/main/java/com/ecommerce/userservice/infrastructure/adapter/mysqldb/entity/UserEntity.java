@@ -3,6 +3,9 @@ package com.ecommerce.userservice.infrastructure.adapter.mysqldb.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "user")
@@ -32,6 +35,9 @@ public class UserEntity {
     private Long roleId;
 
     private String password;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderEntity> orders = new ArrayList<>();
 
 
 }

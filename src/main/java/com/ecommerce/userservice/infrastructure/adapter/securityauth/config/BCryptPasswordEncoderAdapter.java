@@ -25,17 +25,12 @@ public class BCryptPasswordEncoderAdapter implements PasswordEncoderRepository {
     public String encode(String rawPassword) {
         return delegate.encode(rawPassword);
     }
-/*
+
     @Override
-    public Mono<Boolean> matches(String rawPassword, String encodedPassword) {
-        return Mono.defer(() ->
-                        Mono.fromCallable(() -> delegate.matches(rawPassword, encodedPassword))
-                                .subscribeOn(Schedulers.boundedElastic())
-                )
-                .doOnNext(logger -> log.info("User matches login successfully"))
-                .doOnError(error -> log.error("Error in matches method, failed with message: {}", error.getMessage()));
+    public Boolean matches(String rawPassword, String encodedPassword) {
+        return delegate.matches(rawPassword, encodedPassword);
 
     }
 
- */
+
 }

@@ -5,5 +5,5 @@ public interface PasswordEncoderRepository {
 
     String encode(String rawPassword);
 
-    //Boolean matches(String rawPassword, String encodedPassword);
+    Boolean matches(String rawPassword, String encodedPassword);
 }
