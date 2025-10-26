@@ -1,5 +1,4 @@
-package com.ecommerce.userservice.domain.usecase;
-
+package com.ecommerce.userservice.domain.usecase.user;
 
 
 import com.ecommerce.userservice.domain.model.user.User;
@@ -7,8 +6,8 @@ import com.ecommerce.userservice.domain.model.user.User;
 import java.util.Optional;
 
 public interface IuserUseCase {
+
     User save(User user);
 
-
-    Optional<User> findByEmail(String email);
+    User getUserProfile(Long userId);
 }
