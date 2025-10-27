@@ -10,7 +10,6 @@ import com.ecommerce.userservice.domain.usecase.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 /**
  * UseCase for handling user operations
