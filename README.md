@@ -18,10 +18,11 @@ should do, but not how it should be done. The infrastructure layer then implemen
 ## Installation
 
 1. Execute scripts database
-   1.1. Execute script in `scripts/sdscrits.sql` to create and populate initial records
-   1.2. Go to develop branch and run the application
-2. Environment Variables
-   2.1. Create a secret alphanumeric or with special characters, you could use the web page https://jwtsecretkeygenerator.com/es/ to generate a 256 bits (32+ chars) secret jwt
+   1.1. Execute script in `scripts/sdscrits.sql` to create and populate initial records<br>
+   1.1. Execute script in `scripts/sdscrits.sql` to create and populate initial records<br>
+   1.2. Go to develop branch and run the application<br>
+2. Environment Variables<br>
+   2.1. Create a secret alphanumeric or with special characters, you could use the web page https://jwtsecretkeygenerator.com/es/ to generate a 256 bits (32+ chars) secret jwt<br>
    2.2. Set the following environment variable:
    ```json
    -JWT_SECRET       the secret value generated, use the same secret in each project, example: A-9&]h]=M7Cg1[(GP,Lp7a+ft|_{D-%!h)]1XRcGdCj
